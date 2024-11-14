@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List in Table Format</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <script src="jquery/dist/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+    <script src="js/bootstrap.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+
+  
+    </style>
+    </head>
+<body>
+    <div class="container">
+        <h1>Books List</h1>
+        <table id="book-table" class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+  <script>
+    $(document).ready(function() {
+        $.ajax({
+            url: 'book.json',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                const books = data.works;
+
+                books.forEach(book => {
+                    const title = book.title;
+                    const author = book.authors[0]?.name || 'Unknown';
+
+                    const bookRow = `
+                        <tr>
+                            <td>${title}</td>
+                            <td>${author}</td>
+                        </tr>
+                    `;
+
+                    $('#book-table tbody').append(bookRow);
+                });
+            },
+            error: function() {
+                alert('Error loading books. Please try again later.');
+            }
+        });
+    });
+
+  </script>
+</body>
+</html>

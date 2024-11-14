@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <script src="jquery/dist/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <style>
+        .box{
+            width: 99%;
+            height:auto;
+            background-color: gray;
+            color:whitesmoke;
+            margin-top:7px;
+            margin-left: 1px;
+             padding-bottom: 0px;
+            
+        }
+        .box:hover{
+            background-color:darkgray;
+        }
+        .box1{
+            height:300px;
+            width:40%;
+            box-shadow: inset;
+            padding: 15px 20px 300px 20px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            margin-top: 100px;
+            margin-left: 30%;
+            /* overflow-y: auto; */
+            /* overflow-x: hidden; */
+            /* position: relative; */
+
+          
+        }
+        .btnstyle{
+            color:whitesmoke;
+            height: 30px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+        /* .btnstyle:hover{
+            background-color:#f22952;
+            color:whitesmoke;
+            width:50px;
+        } */
+        .lbl1{
+            font-size: 25px;
+            text-align: center;
+            font-weight:700;
+            margin-left: 100px;
+            position:sticky;
+            top: 0; 
+         
+        }
+        .inptstyle{
+            background-color:gray;
+            color:whitesmoke;
+            width:99%;
+            margin-top:7px;
+            border-radius:5px;
+            
+        }
+        .txtstyle{
+            background-color:gray;
+            color:whitesmoke;
+            width:99%;
+            height: 250%;
+            margin-top:7px;
+            border-radius:5px;
+            margin-left: 1px;
+            
+        }
+        ::placeholder{color:whitesmoke;}
+        .btn-add {
+            position: absolute;
+            bottom: 25px;
+            right: 10px;
+            background-color: #f22952;
+            font-weight: 600;
+        }
+        .down_lbl{
+            position: absolute;
+            bottom: 0px;
+            color:white;
+            left:100px;
+        }
+        .singlevstyle{
+            color:white;
+        }
+        .singlevdata{
+            color:whitesmoke;
+            background-color: gray;
+            width:99%;
+            height: auto;
+            margin-top:7px;
+            border-radius:5px;
+            margin-left: 1px;
+        }
+    </style>
+</head>
+<body>     
+    <div class="container-fluid">
+        <br/>
+        <div class="box1" >
+            <h2>Registration Form</h2><br/>
+            <form method="post" >
+                <div class="form-group">
+                    <label>State:</label>
+                    <select id="txtState" name="txtState" class="form-control">
+                        <option value="">--Select State--</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Maharastr">Maharastr</option>
+                        <option value="Karnataka">Karnataka</option>
+                    </select>
+                </div><br/>
+                <div class="form-group">
+                    <label>City:</label>
+                    <select id="txtCity" name="txtCity" class="form-control">
+                    </select>
+                </div><br/>
+            </form>
+        </div>
+    </div>
+    <script>
+            
+        $(document).ready(function() {
+            
+            const stateCities = {
+                "Gujarat": ["Surat", "Ahemdabad", "Bhavanagar"],
+                "Maharastr": ["Mumbai", "Pune", "Mahableshwar"],
+                "Karnataka": ["Bangluru", "Manglore", "Dharvi"]
+            };
+
+            // When state dropdown changes
+            $('#txtState').change(function() {
+                const selectedState = $(this).val();
+                const cityDropdown = $('#txtCity');
+
+                // Clear previous cities
+                cityDropdown.empty();
+                cityDropdown.append('<option value="">-- Select a City --</option>');
+
+                if (selectedState) {
+                    stateCities[selectedState].forEach(function(city) {
+                        cityDropdown.append(`<option value="${city}">${city}</option>`);
+                    });
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

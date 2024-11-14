@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load More Books</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <script src="jquery/dist/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+    <script src="js/bootstrap.min.js"></script>    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #book-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .book {
+            border: 1px solid #ddd;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        .book img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        h2 {
+            font-size: 1.2em;
+        }
+        #loadMoreBtn {
+            margin: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Books List</h1>
+<div id="book-list"></div>
+<button id="loadMoreBtn">Load More</button>
+
+
+<script>
+  $(document).ready(function() {
+    let page = 1; // Initial page number
+    let itemsPerPage = 2; // Number of books to load per click
+    let totalBooks = 0;
+
+    // Function to fetch and display books
+    function loadBooks() {
+        $.ajax({
+            url: "book2.json",
+            method: 'GET',
+            success: function(response) {
+                let books = response.books;
+                totalBooks = books.length;
+
+                // Calculate the start and end indexes for pagination
+                let startIndex = (page - 1) * itemsPerPage;
+                let endIndex = Math.min(page * itemsPerPage, totalBooks);
+
+                // Get the subset of books to display on this "page"
+                let booksToDisplay = books.slice(startIndex, endIndex);
+                let bookList = $('#book-list');
+
+                // Loop through the subset of books and display them
+                booksToDisplay.forEach(function(book) {
+                    let title = book.title;
+                    let author = book.author;
+
+                    let bookItem = `
+                        <div class="book">
+                            <h2>${title}</h2>
+                            <p><strong>Author:</strong> ${author}</p>
+                        </div>
+                    `;
+                    bookList.append(bookItem);
+                });
+
+                // Increment page number for the next load
+                page++;
+
+                // Hide "Load More" button if all books are loaded
+                if (endIndex >= totalBooks) {
+                    $('#loadMoreBtn').hide();
+                }
+            },
+            error: function() {
+                alert('Failed to load books from the JSON file.');
+            }
+        });
+    }
+
+    // Load the first set of books on page load
+    // loadBooks();
+
+    // Load more books when the "Load More" button is clicked
+    $('#loadMoreBtn').click(function() {
+        loadBooks();
+    });
+});
+
+</script>
+</body>
+</html>

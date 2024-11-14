@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <script src="jquery/dist/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+
+    <style>
+        .box{
+            width: 99%;
+            height:auto;
+            background-color: gray;
+            color:whitesmoke;
+            margin-top:7px;
+            margin-left: 1px;
+             padding-bottom: 0px;
+            
+        }
+        .box:hover{
+            background-color:darkgray;
+        }
+        .box1{
+            height:300px;
+            width:40%;
+            box-shadow: inset;
+            padding: 15px 20px 300px 20px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            margin-top: 100px;
+            margin-left: 30%;
+            /* overflow-y: auto; */
+            /* overflow-x: hidden; */
+            /* position: relative; */
+
+          
+        }
+        .btnstyle{
+            color:whitesmoke;
+            height: 30px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+        /* .btnstyle:hover{
+            background-color:#f22952;
+            color:whitesmoke;
+            width:50px;
+        } */
+        .lbl1{
+            font-size: 25px;
+            text-align: center;
+            font-weight:700;
+            margin-left: 100px;
+            position:sticky;
+            top: 0; 
+         
+        }
+        .inptstyle{
+            background-color:gray;
+            color:whitesmoke;
+            width:99%;
+            margin-top:7px;
+            border-radius:5px;
+            
+        }
+        .txtstyle{
+            background-color:gray;
+            color:whitesmoke;
+            width:99%;
+            height: 250%;
+            margin-top:7px;
+            border-radius:5px;
+            margin-left: 1px;
+            
+        }
+        ::placeholder{color:whitesmoke;}
+        .btn-add {
+            position: absolute;
+            bottom: 25px;
+            right: 10px;
+            background-color: #f22952;
+            font-weight: 600;
+        }
+        .down_lbl{
+            position: absolute;
+            bottom: 0px;
+            color:white;
+            left:100px;
+        }
+        .singlevstyle{
+            color:white;
+        }
+        .singlevdata{
+            color:whitesmoke;
+            background-color: gray;
+            width:99%;
+            height: auto;
+            margin-top:7px;
+            border-radius:5px;
+            margin-left: 1px;
+        }
+    </style>
+</head>
+<body>     
+    <div class="container-fluid">
+        <br/>
+        <div class="box1" >
+            <h2>Registration Form</h2><br/>
+            <form method="post" >
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input type="text" id="txtFull" name="txtFull" class="form-control"/>
+                </div><br/>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="txtMail" name="txtMail" class="form-control"/>
+                </div><br/>
+                <div class="form-group">
+                   <button class="btn btn-primary" type="submit" id="txtSubmit" name="txtSubmit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $("#txtSubmit").click(function(){
+                name=$("#txtFull").val();
+                mail=$("#txtMail").val();
+                // let flag=true;
+                pattName=/^[A-Za-z ]{3,}$/;
+                pattMail=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                if(name=="" || name==null)
+                {
+                    alert("Name Feild is required");
+                    return false;
+                }else if(pattName.test(name)==false)
+                {
+                    alert("Name should be only capital or small alphbate and whitespace with minimum 3 charcter required");
+                    return false;
+                }
+                if(mail=="" || mail==null)
+                {
+                    alert("Email address feild is required");
+                    return false;
+                }else if(pattMail.test(mail)==false)
+                {
+                    alert("Email address must be in this format only example@domain.com");
+                    return false;
+                }
+
+            });
+        });
+    </script>
+</body>
+</html>

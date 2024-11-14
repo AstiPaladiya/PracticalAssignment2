@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jquery Slider</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <script src="jquery/dist/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <style>
+       #slider img{
+            display:none;
+            
+       }
+       #slider img.active{
+        display: block;
+       }
+    </style>
+</head>
+<body>     
+    <div class="container-fluid">
+        <br/>
+        <div id="slider"> 
+          <img src="img5.png" width="45%" height="45%" class="active" id="img1" />
+          <img src="img3.png" width="39%" height="39%" id="img2"  />
+          <img src="img4.jpg" width="45%" height="45%"  id="img3"  />
+        </div><br/>
+        <button class="btn btn-primary" id="txtPre" name="txtPre">Previous</button>
+        <button class="btn btn-primary" id="txtNxt" name="txtNxt">Next</button>
+    </div>
+    <script>
+        $(document).ready(function(){
+            let imges=$("#slider img");
+            imges.hide().first().show();
+            $("#txtNxt").click(function(){
+                let currentImage=$("#slider img:visible");
+                let nextImage=currentImage.next(imges);
+                if(nextImage.length==0)
+                {
+                    nextImage=imges.first();                    
+                }
+                currentImage.hide();
+                nextImage.show();
+            });
+            $("#txtPre").click(function(){
+                    let currentImage=$("#slider img:visible");
+                    let preImage=currentImage.prev(imges);
+                    if(preImage.length==0)
+                    {
+                        preImage=imges.last();
+                    }
+                    currentImage.hide();
+                    preImage.show();
+            });
+
+        });
+    </script>
+</body>
+</html>

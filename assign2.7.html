@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <script src="jquery/dist/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <title>Autocomplete Search</title>
+    <style>
+        #searchResults {
+            border: 1px solid #ddd;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+            background-color: #fff;
+            width: 100%;
+            z-index: 1000;
+        }
+        .search-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .search-item:hover {
+            background-color: #f0f0f0;
+        }
+        .box{
+            height: 100px;
+            width:300px;
+            border:1px solid black;
+            padding: 20px 20px 20px 20px; 
+            margin-top:20px;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+        <div class="box">
+            <label>Search Here :-</label><br/>
+            <input type="text" id="searchInput" placeholder="Search..." autocomplete="off">
+            <div id="searchResults"></div>  
+        </div>
+
+    <script>
+    $(document).ready(function () {
+        $('#searchInput').on('input', function () {
+            let query = $(this).val().trim();
+    
+            if (query.length > 2) {  // Trigger AJAX call only if the query is longer than 2 characters
+                $.ajax({
+                    url: `https://api.example.com/search?q=${query}`,  // Replace with the API endpoint
+                    type: 'GET',
+                    success: function (data) {
+                        $('#searchResults').empty();
+                        
+                        // Loop through results and add to the dropdown
+                        data.results.forEach(function (item) {
+                            $('#searchResults').append(`<div class="search-item">${item.name}</div>`);
+                        });
+                        
+                        // Show the dropdown
+                        $('#searchResults').show();
+                    },
+                    error: function () {
+                        $('#searchResults').empty().append('<div class="search-item">No results found</div>');
+                        $('#searchResults').show();
+                    }
+                });
+            } else {
+                $('#searchResults').hide();  // Hide dropdown if query is too short
+            }
+        });
+    
+        // Hide dropdown when clicking outside
+        $(document).click(function (e) {
+            if (!$(e.target).closest('#searchInput').length) {
+                $('#searchResults').hide();
+            }
+        });
+    
+        // Click event for selecting an item
+        $(document).on('click', '.search-item', function () {
+            $('#searchInput').val($(this).text());
+            $('#searchResults').hide();
+        });
+    });
+</script>    
+</body>
+</html>
